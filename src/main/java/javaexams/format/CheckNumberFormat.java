@@ -12,9 +12,9 @@ public class CheckNumberFormat extends BaseCheck {
     @Override
     public void go() {
         Float f = 0.3456f;
-        p(f);
+        p(f); //0.3456
 
         NumberFormat nf = NumberFormat.getPercentInstance();
-        p(nf.format(f));
+        p(nf.format(f));  //35%
     }
 }
