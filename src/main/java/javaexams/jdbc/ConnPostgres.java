@@ -7,7 +7,7 @@ import java.sql.*;
  */
 public class ConnPostgres {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Class.forName("org.postgresql.Driver");
+       // Class.forName("org.postgresql.Driver"); // not need in jdbc 4
         Connection connection = null;
         connection = DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5434/testing_db","nemavasi", "0");
