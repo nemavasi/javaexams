@@ -1,5 +1,5 @@
 concurrency
-    - livelocks
+    + livelocks
     - ForkJoinTask - и его реализации (RecursivAction)
     - ForkJoinPool
     - Executors
@@ -47,10 +47,10 @@ time
     + Period
     + Duration
     + LocalTime LocalDateTime
-    - ZoneDateTime
+    + ZoneDateTime
 others
     + NumberFormat
     - Optional
     - Console readline vs reader.read
-    - как прпвильно называть файлы ресурсов
+    - как правильно называть файлы ресурсов
     + multicatch
