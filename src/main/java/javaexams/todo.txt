@@ -15,7 +15,7 @@ jdbc
     - CONCUR_REEAD_ONLY
     - CONCUR_UPDATABLE
     - Driver
-    - execute vs executeQuery
+    + execute vs executeQuery
     - Scrollable RecordSet
     - 3.0 vs 4.0
     - TYPE_SCROLL_INSENSITIVE
