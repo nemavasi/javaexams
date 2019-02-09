@@ -5,7 +5,10 @@ import javaexams.BaseCheck;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class CheckTime extends BaseCheck {
 
@@ -32,5 +35,10 @@ public class CheckTime extends BaseCheck {
         Duration duration = duration1.plus(duration2).plus(duration3);
         p(duration.toString());            //PT10440H
         p(ldt.minus(duration).toString()); //2019-02-06T09:11:08.663
+
+        ZonedDateTime zdt = ZonedDateTime.now();
+        p(zdt); //2019-02-09T13:58:48.937+03:00[Europe/Moscow]
+        p(zdt.truncatedTo(ChronoUnit.DAYS)); //2019-02-09T00:00+03:00[Europe/Moscow]
+        p(zdt.getZone());   //Europe/Moscow
     }
 }
