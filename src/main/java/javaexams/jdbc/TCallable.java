@@ -13,7 +13,7 @@ public class TCallable {
         stmt.setInt(1, 7);
         stmt.registerOutParameter(2, Types.VARCHAR);
         stmt.execute();
-        System.out.println(stmt.getString(2));
+        System.out.println(stmt.getString(2)); //qwerqtw
 
         connection.close();
 
