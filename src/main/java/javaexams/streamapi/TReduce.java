@@ -4,9 +4,9 @@ import javaexams.BaseCheck;
 
 import java.util.stream.IntStream;
 
-public class TSummarizing extends BaseCheck {
+public class TReduce extends BaseCheck {
     public static void main(String[] args) {
-        new TSummarizing().go();
+        new TReduce().go();
     }
 
     @Override
