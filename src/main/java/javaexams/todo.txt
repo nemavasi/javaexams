@@ -1,0 +1,40 @@
+concurrency
+    - livelocks
+    - ForkJoinTask - и его реализации (RecursivAction)
+collections
+    - ConcurrentSkipListMap
+    - ConcurrentSkipListSet
+    - CopyOnWriteArrayList
+    - all concurrent collections
+jdbc
+    - CONCUR_REEAD_ONLY
+    - CONCUR_UPDATABLE
+    - Driver
+    - execute vs executeQuery
+    - Scrollable RecordSet
+    - 3.0 vs 4.0
+
+generics
+    - List<?> - whatr can I do?
+    - wildcards
+streamapi
+    - IntStream generate iterate
+    - 1 lection Tagir Valiev
+    - findAny findFirst
+    - allMAtch anyMatch newMatch
+nio
+    - 2 video lections
+    - Path.getName(0)
+    - Files.walk
+    - Files.lines()
+    - Path methods
+    - path.relativize(path2)
+
+time
+    + Period
+    + Duration
+    + LocalTime LocalDateTime
+    - ZoneDateTime
+others
+    + NumberFormat
+    - Optional

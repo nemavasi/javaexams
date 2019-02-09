@@ -12,7 +12,7 @@
 
 
     <properties>
-        <postgres.version>42.1.1</postgres.version>
+        <postgres.version>9.1-901-1.jdbc4</postgres.version>
     </properties>
 
 
@@ -20,7 +20,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.postgresql</groupId>
+            <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgres.version}</version>
         </dependency>

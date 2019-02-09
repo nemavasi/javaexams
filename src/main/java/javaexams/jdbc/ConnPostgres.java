@@ -10,7 +10,7 @@ public class ConnPostgres {
         Class.forName("org.postgresql.Driver");
         Connection connection = null;
         connection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/testing_db","nemavasi", "0");
+                "jdbc:postgresql://localhost:5434/testing_db","nemavasi", "0");
 
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("select 42");
