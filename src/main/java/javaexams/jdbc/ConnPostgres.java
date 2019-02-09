@@ -13,9 +13,9 @@ public class ConnPostgres {
                 "jdbc:postgresql://localhost:5434/testing_db","nemavasi", "0");
 
         Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("select 42");
+        ResultSet rs = stmt.executeQuery("select version()");
         rs.next();
-        int v = rs.getInt(1);
+        String v = rs.getString(1);
         System.out.println(v);
 
         connection.close();
