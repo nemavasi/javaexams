@@ -9,6 +9,7 @@ collections
     - ConcurrentSkipListSet
     - CopyOnWriteArrayList
     - all concurrent collections
+    - all nonconcurrent collections
     - ArrayDeque
 jdbc
     - CONCUR_REEAD_ONLY
