@@ -1,11 +1,15 @@
 concurrency
     - livelocks
     - ForkJoinTask - и его реализации (RecursivAction)
+    - ForkJoinPool
+    - Executors
+    - ExecutorService
 collections
     - ConcurrentSkipListMap
     - ConcurrentSkipListSet
     - CopyOnWriteArrayList
     - all concurrent collections
+    - ArrayDeque
 jdbc
     - CONCUR_REEAD_ONLY
     - CONCUR_UPDATABLE
@@ -13,7 +17,7 @@ jdbc
     - execute vs executeQuery
     - Scrollable RecordSet
     - 3.0 vs 4.0
-
+    - TYPE_SCROLL_INSENSITIVE
 generics
     - List<?> - whatr can I do?
     - wildcards
@@ -22,6 +26,10 @@ streamapi
     - 1 lection Tagir Valiev
     - findAny findFirst
     - allMAtch anyMatch newMatch
+    - summarizing
+    + joining
+    - OptionalDouble
+    - DoubleConsumer
 nio
     - 2 video lections
     - Path.getName(0)
@@ -29,6 +37,8 @@ nio
     - Files.lines()
     - Path methods
     - path.relativize(path2)
+    - NOFOLLOW_LINKS
+    + Path.toRealPath
 
 time
     + Period
@@ -38,3 +48,6 @@ time
 others
     + NumberFormat
     - Optional
+    - Console readline vs reader.read
+    - как прпвильно называть файлы ресурсов
+    + multicatch
