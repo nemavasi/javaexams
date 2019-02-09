@@ -12,13 +12,13 @@ collections
     - all nonconcurrent collections
     - ArrayDeque
 jdbc
-    - CONCUR_REEAD_ONLY
-    - CONCUR_UPDATABLE
+    + CONCUR_REEAD_ONLY
+    + CONCUR_UPDATABLE
     - Driver
     + execute vs executeQuery
-    - Scrollable RecordSet
+    + Scrollable RecordSet
     - 3.0 vs 4.0
-    - TYPE_SCROLL_INSENSITIVE
+    + TYPE_SCROLL_INSENSITIVE
     + callable out
 generics
     - List<?> - whatr can I do?
