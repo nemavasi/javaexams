@@ -29,7 +29,7 @@ streamapi
     - allMAtch anyMatch newMatch
     - summarizing
     + joining
-    - OptionalDouble
+    + OptionalDouble
     - DoubleConsumer
 nio
     - 2 video lections
