@@ -19,6 +19,7 @@ jdbc
     - Scrollable RecordSet
     - 3.0 vs 4.0
     - TYPE_SCROLL_INSENSITIVE
+    + callable out
 generics
     - List<?> - whatr can I do?
     - wildcards
