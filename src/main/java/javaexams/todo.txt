@@ -27,7 +27,7 @@ streamapi
     - 1 lection Tagir Valiev
     - findAny findFirst
     - allMAtch anyMatch newMatch
-    - summarizing
+    + summarizing
     + joining
     + OptionalDouble
     - DoubleConsumer
