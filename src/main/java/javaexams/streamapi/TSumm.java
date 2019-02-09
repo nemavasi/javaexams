@@ -2,8 +2,6 @@ package javaexams.streamapi;
 
 import javaexams.BaseCheck;
 
-import java.util.function.ToDoubleFunction;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TSumm extends BaseCheck {
