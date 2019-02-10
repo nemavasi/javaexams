@@ -21,13 +21,13 @@ jdbc
     + TYPE_SCROLL_INSENSITIVE
     + callable out
 generics
-    - List<?> - whatr can I do?
+    - List<?> - what can I do?
     - wildcards
 streamapi
     - IntStream generate iterate
     - 1 lection Tagir Valiev
-    - findAny findFirst
-    - allMAtch anyMatch newMatch
+    + findAny findFirst
+    + allMatch anyMatch noneMatch
     + summarizing
     + joining
     + OptionalDouble
