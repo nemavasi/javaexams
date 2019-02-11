@@ -1,6 +1,6 @@
 package javaexams.access;
 
-public class Test {
+public class TPrivate {
     private  class Test2 {
         private static final String name = "Name";
     }
