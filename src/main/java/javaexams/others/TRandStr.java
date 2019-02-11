@@ -1,4 +1,4 @@
-package javaexams.streamapi;
+package javaexams.others;
 
 import java.util.UUID;
 

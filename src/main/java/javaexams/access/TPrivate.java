@@ -1,13 +1,24 @@
 package javaexams.access;
 
 public class TPrivate {
-    private  class Test2 {
+    private static String nm = "sdf";
+    private static class Test2 {
+
+        private static class Test3{
+            private static final String name = "Three";
+        }
+
         private static final String name = "Name";
+
+        private static String getNM(){
+            return nm;
+        }
     }
 
     public static void main(String[] args) {
-        System.out.println(Test2.name);
+        System.out.println(Test2.name + Test2.getNM() + Test2.Test3.name);
         //System.out.println(Fd.name2); //wrong
+        //NamesdfThree
     }
 
     //В соответствии со спецификацией языка Java:
