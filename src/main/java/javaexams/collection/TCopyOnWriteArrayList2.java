@@ -18,11 +18,6 @@ public class TCopyOnWriteArrayList2 {
             }
         }
 
-//        for (String str : list) {
-//            if (str.equals("two")) {
-//                list.remove("three");
-//            }
-//        }
         System.out.println(list);
     }
 
@@ -36,7 +31,7 @@ public class TCopyOnWriteArrayList2 {
 
         removeAndPrint(list);
 
-        //[one, two, four]
+        //java.lang.UnsupportedOperationException
 
     }
 }
