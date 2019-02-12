@@ -11,6 +11,10 @@ collections
     - all concurrent collections
     - all nonconcurrent collections
     - ArrayDeque
+    - IdentityHashMap
+    - LinkedHashMap
+    - WeakHashMap
+
 jdbc
     + CONCUR_REEAD_ONLY
     + CONCUR_UPDATABLE
@@ -32,6 +36,9 @@ streamapi
     + joining
     + OptionalDouble
     - DoubleConsumer
+io
+    - ByteArrayOutputStream
+    - ObjectOutputStream
 nio
     - 2 video lections
     - Path.getName(0)
@@ -54,3 +61,4 @@ others
     - Console readline vs reader.read
     - как правильно называть файлы ресурсов
     + multicatch
+    - weak/strong/soft ссылках
