@@ -17,8 +17,9 @@ public class TPrivate {
 
     public static void main(String[] args) {
         System.out.println(Test2.name + Test2.getNM() + Test2.Test3.name);
+
         //System.out.println(Fd.name2); //wrong
-        //NamesdfThree
+        //NamesdfThreed
     }
 
     //В соответствии со спецификацией языка Java:
