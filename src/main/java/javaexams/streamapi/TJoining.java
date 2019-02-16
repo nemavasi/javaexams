@@ -17,6 +17,20 @@ public class TJoining extends BaseCheck {
                 .mapToObj(x->String.valueOf(x))
                 .collect(Collectors.joining())
                 ;
-        p(s);
+        p(s);  //0123456789
+
+
+        s = IntStream.range(0, 10)
+                .mapToObj(x->String.valueOf(x))
+                .collect(Collectors.joining("-"))
+                ;
+        p(s); //0-1-2-3-4-5-6-7-8-9
+
+
+        s = IntStream.range(0, 10)
+                .mapToObj(x->String.valueOf(x))
+                .collect(Collectors.joining("-", "<", ">"))
+                ;
+        p(s); //<0-1-2-3-4-5-6-7-8-9>
     }
 }
