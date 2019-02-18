@@ -11,5 +11,15 @@ public class TReduce1 {
                 .ifPresent(System.out::println)
                 //99
         ;
+
+
+        System.out.println(
+        IntStream
+                .range(0, 100)
+                .boxed()
+                .reduce(442, (x,y)->x>y?x:y));
+
+        //442
+        ;
     }
 }
