@@ -2,7 +2,6 @@ package javaexams.collection;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Set;
 
 public class TLinkedHashMap {
     public static void main(String[] args) {
