@@ -1,11 +1,13 @@
 package javaexams.collection;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
 public class TDeque {
     public static void main(String[] args) {
-        Deque<String> deque = new LinkedList<>();
+
+        Deque<String> deque = new ArrayDeque<>(); //new LinkedList<>();
         // методы генерирующие исключения
 
         //Все также как в обычное очереди
