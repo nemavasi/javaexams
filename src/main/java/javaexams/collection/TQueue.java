@@ -12,7 +12,7 @@ public class TQueue {
         System.out.println(queue);
         // [One]
 
-        queue.add("null");
+        queue.add("Two");
         System.out.println(queue);
         // [One, Two]
 
