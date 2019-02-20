@@ -12,7 +12,7 @@ public class TQueue {
         System.out.println(queue);
         // [One]
 
-        queue.add("Two");
+        queue.add("null");
         System.out.println(queue);
         // [One, Two]
 
@@ -60,6 +60,10 @@ public class TQueue {
         System.out.println(queue2.poll());
         // null
 
+        System.out.println(queue.add(null)); //не для всех реализаций коллекций
+        // true
+        System.out.println(queue.offer(null)); //не для всех реализаций коллекций
+        // true
 
     }
 
