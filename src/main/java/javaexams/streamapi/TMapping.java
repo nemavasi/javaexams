@@ -9,10 +9,10 @@ public class TMapping {
         List<Integer> list =
                 IntStream.range(0, 10)
                         .boxed()
-                        .map((x) -> x * 10).collect(Collectors.toList());
-                        //эквивалентно .collect(Collectors.mapping((x)-> x*10, Collectors.toList()));
+                        //эквивалентно .map((x) -> x * 10).collect(Collectors.toList());
+                        .collect(Collectors.mapping((x)-> x*10, Collectors.toList()));
 
         System.out.println(list);
-        // 10
+        // [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
     }
 }
