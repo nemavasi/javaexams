@@ -50,10 +50,12 @@ public class ThreadInterrupts {
             @Override
             public void run() {
                 Scanner scanner = new Scanner(System.in);
-                scanner.next();
+                String t = scanner.next();
+                System.out.println(t);
+
             }
         });
-        thread.setDaemon(true);
+        //thread.setDaemon(true);
         thread.start();
 
         try {
