@@ -22,9 +22,9 @@ public class CompressString {
         StringBuilder result = new StringBuilder(str.charAt(0));
 
         int counter = 1;
-        char lastc = str.charAt(0);
+        char lastc = (char) -1; //str.charAt(0);
         char c;
-        for (int i = 1; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             c = str.charAt(i);
             if (lastc == c) {
                 counter++;
@@ -32,9 +32,16 @@ public class CompressString {
                     continue;
                 }
             }
-            String delta = String.valueOf(lastc);
+            String delta="";
             if (counter > 1) {
-                delta += counter;
+                delta = String.valueOf(counter);
+            }
+            if (i != str.length() - 1) {
+                delta += String.valueOf(c);
+            } else {
+                if (c==lastc) {
+                    delta = String.valueOf(counter);
+                }
             }
             result.append(delta);
             lastc = c;
