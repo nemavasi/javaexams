@@ -6,41 +6,44 @@ import java.util.regex.Pattern;
 
 public class CompressString {
     public static void main(String[] args) {
-//        System.out.println(compress2("AAAABBBBBB"));
-//        System.out.println(compress2("ABBA"));
-//        System.out.println(compress2("ABBACCC"));
+        System.out.println(compress1("AAAABBBBBB"));
+        System.out.println(compress1("ABBA"));
+        System.out.println(compress1("ABBACCC"));
 //
 //        System.out.println(null == compress2(null));
 //        System.out.println("A".equals(compress2("A")));
 //        System.out.println("A3".equals(compress2("AAA")));
 //        System.out.println("AB2A".equals(compress2("ABBA")));
 //        System.out.println("AB2AC3".equals(compress2("ABBACCC")));
+
+/*
         long time1, time2;
 
         time1 = (new Date()).getTime();
         System.out.println(compress3(STR));
         time2 = (new Date()).getTime();
-        System.out.println("compress hot :: " + (time2-time1));
+        System.out.println("compress hot :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
         System.out.println(compress3(STR));
         time2 = (new Date()).getTime();
-        System.out.println("compress3 :: " + (time2-time1));
+        System.out.println("compress3 :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
         System.out.println(compress2(STR));
         time2 = (new Date()).getTime();
-        System.out.println("compress2 :: " + (time2-time1));
+        System.out.println("compress2 :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
         System.out.println(compress1(STR));
         time2 = (new Date()).getTime();
-        System.out.println("compress1 :: " + (time2-time1));
+        System.out.println("compress1 :: " + (time2 - time1));
+
+ */
     }
 
 
-
-    private static String compress2(String str){
+    private static String compress2(String str) {
 
         if (str == null) return null;
         if (str.length() == 1) return str;
@@ -50,7 +53,7 @@ public class CompressString {
         Matcher matcher = pattern.matcher(str);
         if (matcher.find()) {
             int n = matcher.group(2).length();
-           // System.out.println(matcher.group(2));
+            // System.out.println(matcher.group(2));
             n++;
             result = matcher.replaceFirst("$1" + n);
             b = true;
@@ -59,7 +62,7 @@ public class CompressString {
         return result;
     }
 
-    private static String compress3(String str){
+    private static String compress3(String str) {
         if (str == null) return null;
         if (str.length() == 1) return str;
         String result = str;
@@ -76,39 +79,76 @@ public class CompressString {
 
     //todo доделать свою реализацию
     private static String compress1(String str) {
+        //fast path
         if (str == null) return null;
         if (str.length() == 1) return str;
 
-        StringBuilder result = new StringBuilder(str.charAt(0));
+        //
+        StringBuilder result = new StringBuilder();
 
-        int counter = 1;
-        char lastc = (char) -1; //str.charAt(0);
-        char c;
-        for (int i = 0; i < str.length(); i++) {
-            c = str.charAt(i);
-            if (lastc == c) {
-                counter++;
-                if (i != str.length() - 1) {
-                    continue;
+        Status status = Status.EAT_DIFF;
+
+        int len = str.length();
+        int cursor_dif = 1;
+        int cursor_rep = 1;
+
+        boolean endFlag = false;
+
+        while (true) {
+            if (status == Status.EAT_DIFF) {
+                cursor_dif++;
+                endFlag = cursor_dif == len;
+                if (!endFlag) {
+                    if (str.charAt(cursor_dif) == str.charAt(cursor_dif - 1)) {
+                        cursor_dif = cursor_dif - 2;
+                        if (cursor_dif > cursor_rep) {
+                            result.append(str, cursor_rep, cursor_dif);
+                        }
+                        cursor_rep = cursor_dif;
+                        status = Status.EAT_REP;
+                        continue;
+                    }
+                }
+                if (endFlag) {
+                    cursor_dif = cursor_dif - 1;
+                    if (cursor_dif > cursor_rep) {
+                        result.append(str, cursor_rep, cursor_dif);
+                    }
+                    break;
                 }
             }
-            String delta="";
-            if (counter > 1) {
-                delta = String.valueOf(counter);
-            }
-            if (i != str.length() - 1) {
-                delta += String.valueOf(c);
-            } else {
-                if (c==lastc) {
-                    delta = String.valueOf(counter);
+
+
+            if (status == Status.EAT_REP) {
+                cursor_rep++;
+                endFlag = cursor_rep == len;
+                if (!endFlag) {
+                    if (str.charAt(cursor_rep) != str.charAt(cursor_rep - 1)) {
+                        cursor_rep = cursor_rep - 1;
+                        if (cursor_dif < cursor_rep) {
+                            result.append(str, cursor_dif, cursor_rep);
+                        }
+                        cursor_dif = cursor_rep;
+                        status = Status.EAT_DIFF;
+                        continue;
+                    }
+                }
+                if (endFlag) {
+                    cursor_rep = cursor_rep - 1;
+                    if (cursor_dif < cursor_rep) {
+                        result.append(str, cursor_dif, cursor_rep);
+                    }
+                    break;
                 }
             }
-            result.append(delta);
-            lastc = c;
-            counter = 1;
         }
 
         return result.toString();
+    }
+
+    enum Status {
+        EAT_DIFF,
+        EAT_REP
     }
 
     private static String STR = "AAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasdahjsdhjsaHJLKHLHLHhsjahsjhajshjahsроPPPPPPPPdasd" +
