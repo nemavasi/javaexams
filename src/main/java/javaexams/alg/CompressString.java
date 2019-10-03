@@ -1,19 +1,40 @@
 package javaexams.alg;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CompressString {
     public static void main(String[] args) {
-        System.out.println(compress1("AAAABBBBBB"));
-        System.out.println(compress1("ABBA"));
-        System.out.println(compress1("ABBACCC"));
+        System.out.println(compress2("AAAABBBBBB"));
+        System.out.println(compress2("ABBA"));
+        System.out.println(compress2("ABBACCC"));
 
-        System.out.println(null == compress1(null));
-        System.out.println("A".equals(compress1("A")));
-        System.out.println("A3".equals(compress1("AAA")));
-        System.out.println("AB2A".equals(compress1("ABBA")));
-        System.out.println("AB2AC3".equals(compress1("ABBACCC")));
+        System.out.println(null == compress2(null));
+        System.out.println("A".equals(compress2("A")));
+        System.out.println("A3".equals(compress2("AAA")));
+        System.out.println("AB2A".equals(compress2("ABBA")));
+        System.out.println("AB2AC3".equals(compress2("ABBACCC")));
 
+        System.out.println(compress2("AAAAABBCFdfghsjdkjhgdfQQW "));
     }
 
+    private static String compress2(String str){
+        if (str == null) return null;
+        if (str.length() == 1) return str;
+        String result = str;
+        boolean b = false;
+        Pattern pattern = Pattern.compile("(\\w)(\\1+)");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.find()) {
+            //System.out.println("qqq" +  matcher.group(2));
+            int n = matcher.group(2).length();
+            n++;
+            result = matcher.replaceFirst("$1" + n);
+            b = true;
+        }
+        if (b) result = compress2(result);
+        return result;
+    }
 
     private static String compress1(String str) {
         if (str == null) return null;
