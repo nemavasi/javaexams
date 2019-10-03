@@ -86,7 +86,7 @@ public class CompressString {
         return result;
     }
 
-    //todo доделать свою реализацию
+    //решение без регулярных выражений сложностью O(n)
     private static String compress1(String str) {
         //fast path
         if (str == null) return null;
@@ -165,8 +165,8 @@ public class CompressString {
     }
 
     enum Status {
-        EAT_DIFF,
-        EAT_REP
+        EAT_DIFF,  //состояние кушаем повторы
+        EAT_REP    //состояние кушаем разные
     }
 
     private static String STR = "AAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasdahjsdhjsaHJLKHLHLHhsjahsjhajshjahsроPPPPPPPPdasd"+
