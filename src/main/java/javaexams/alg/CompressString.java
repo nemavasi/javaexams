@@ -26,7 +26,6 @@ public class CompressString {
         Pattern pattern = Pattern.compile("(\\w)(\\1+)");
         Matcher matcher = pattern.matcher(str);
         if (matcher.find()) {
-            //System.out.println("qqq" +  matcher.group(2));
             int n = matcher.group(2).length();
             n++;
             result = matcher.replaceFirst("$1" + n);
