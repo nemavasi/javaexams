@@ -6,9 +6,18 @@ import java.util.regex.Pattern;
 
 public class CompressString {
     public static void main(String[] args) {
-        System.out.println(compress1("AAAABBBBBB"));
-        System.out.println(compress1("ABBA"));
-        System.out.println(compress1("ABBACCC"));
+        System.out.println(compress1(STR).equals(compress2(STR)));
+//        System.out.println(compress1(STR));
+//        System.out.println(compress2(STR));
+
+        System.out.println(compress1(STR).equals(compress3(STR)));
+        System.out.println(compress2(STR).equals(compress3(STR)));
+
+//        System.out.println(compress1("AAAABBBBBB"));
+//        ////System.out.println(new StringBuilder().append("abcd", 2 ,3).toString());
+//
+//        System.out.println(compress1("ABBA"));
+//        System.out.println(compress1("ABBACCC"));
 //
 //        System.out.println(null == compress2(null));
 //        System.out.println("A".equals(compress2("A")));
@@ -16,18 +25,18 @@ public class CompressString {
 //        System.out.println("AB2A".equals(compress2("ABBA")));
 //        System.out.println("AB2AC3".equals(compress2("ABBACCC")));
 
-/*
+
         long time1, time2;
 
         time1 = (new Date()).getTime();
-        System.out.println(compress3(STR));
+        System.out.println(compress2(STR));
         time2 = (new Date()).getTime();
         System.out.println("compress hot :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
-        System.out.println(compress3(STR));
+        System.out.println(compress1(STR));
         time2 = (new Date()).getTime();
-        System.out.println("compress3 :: " + (time2 - time1));
+        System.out.println("compress1 :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
         System.out.println(compress2(STR));
@@ -35,11 +44,11 @@ public class CompressString {
         System.out.println("compress2 :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
-        System.out.println(compress1(STR));
+        System.out.println(compress3(STR));
         time2 = (new Date()).getTime();
-        System.out.println("compress1 :: " + (time2 - time1));
+        System.out.println("compress3:: " + (time2 - time1));
 
- */
+
     }
 
 
@@ -49,7 +58,7 @@ public class CompressString {
         if (str.length() == 1) return str;
         String result = str;
         boolean b = false;
-        Pattern pattern = Pattern.compile("(\\w)(\\1+)");
+        Pattern pattern = Pattern.compile("([a-zA-Z])(\\1+)");
         Matcher matcher = pattern.matcher(str);
         if (matcher.find()) {
             int n = matcher.group(2).length();
@@ -66,7 +75,7 @@ public class CompressString {
         if (str == null) return null;
         if (str.length() == 1) return str;
         String result = str;
-        Pattern pattern = Pattern.compile("(\\w)(\\1+)");
+        Pattern pattern = Pattern.compile("([a-zA-Z])(\\1+)");
         Matcher matcher = pattern.matcher(result);
         while (matcher.find()) {
             int n = matcher.group(2).length();
@@ -84,15 +93,15 @@ public class CompressString {
         if (str.length() == 1) return str;
 
         //
-        StringBuilder result = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
         Status status = Status.EAT_DIFF;
 
         int len = str.length();
-        int cursor_dif = 1;
-        int cursor_rep = 1;
+        int cursor_dif = 0;
+        int cursor_rep = 0;
 
-        boolean endFlag = false;
+        boolean endFlag;
 
         while (true) {
             if (status == Status.EAT_DIFF) {
@@ -100,19 +109,20 @@ public class CompressString {
                 endFlag = cursor_dif == len;
                 if (!endFlag) {
                     if (str.charAt(cursor_dif) == str.charAt(cursor_dif - 1)) {
-                        cursor_dif = cursor_dif - 2;
-                        if (cursor_dif > cursor_rep) {
-                            result.append(str, cursor_rep, cursor_dif);
+                        cursor_dif = cursor_dif - 2; //last not repeated
+                        if (cursor_dif >= cursor_rep) {
+                            sb.append(str, cursor_rep, cursor_dif + 1);
                         }
                         cursor_rep = cursor_dif;
+                        cursor_dif++;
+                        cursor_rep++;
                         status = Status.EAT_REP;
                         continue;
                     }
-                }
-                if (endFlag) {
+                } else {
                     cursor_dif = cursor_dif - 1;
-                    if (cursor_dif > cursor_rep) {
-                        result.append(str, cursor_rep, cursor_dif);
+                    if (cursor_dif >= cursor_rep) {
+                        sb.append(str.substring(cursor_rep));
                     }
                     break;
                 }
@@ -124,26 +134,34 @@ public class CompressString {
                 endFlag = cursor_rep == len;
                 if (!endFlag) {
                     if (str.charAt(cursor_rep) != str.charAt(cursor_rep - 1)) {
-                        cursor_rep = cursor_rep - 1;
-                        if (cursor_dif < cursor_rep) {
-                            result.append(str, cursor_dif, cursor_rep);
+                        cursor_rep = cursor_rep - 1;  //last in same chars
+                        if (cursor_dif < cursor_rep && cursor_rep > 0) {
+                            sb.append(str.charAt(cursor_rep));
+                            if (cursor_rep - cursor_dif + 1  > 1) {
+                                sb.append(String.valueOf(cursor_rep - cursor_dif + 1));
+                            }
                         }
                         cursor_dif = cursor_rep;
+                        cursor_dif++;
+                        cursor_rep++;
+
                         status = Status.EAT_DIFF;
                         continue;
                     }
-                }
-                if (endFlag) {
+                } else {
                     cursor_rep = cursor_rep - 1;
-                    if (cursor_dif < cursor_rep) {
-                        result.append(str, cursor_dif, cursor_rep);
+                    if (cursor_dif <= cursor_rep) {
+                        sb.append(str.charAt(cursor_rep)).append(String.valueOf(cursor_rep - cursor_dif + 1));
+                    } else {
+                        status = Status.EAT_DIFF;
+                        continue;
                     }
                     break;
                 }
             }
         }
 
-        return result.toString();
+        return sb.toString();
     }
 
     enum Status {
@@ -151,8 +169,10 @@ public class CompressString {
         EAT_REP
     }
 
-    private static String STR = "AAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasdahjsdhjsaHJLKHLHLHhsjahsjhajshjahsроPPPPPPPPdasd" +
-            "kjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPda" +
+    private static String STR = "AAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasdahjsdhjsaHJLKHLHLHhsjahsjhajshjahsроPPPPPPPPdasd"+
+            "kjhaskjdkajfsdfaerererGGGGGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda" +
+            "hjsdhjsa HJLKHLHLH" +
+            "hsjahsjhajshjahsроPPPPPPda" +
             "sdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdas" +
             "dkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasd" +
             "FGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsda" +
@@ -403,5 +423,6 @@ public class CompressString {
             "HGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGG" +
             "HAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa " +
             "kjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGH";
+
 
 }
