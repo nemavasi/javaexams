@@ -31,7 +31,14 @@ public class CompressString {
         System.out.println(compress2(STR));
         time2 = (new Date()).getTime();
         System.out.println("compress2 :: " + (time2-time1));
+
+        time1 = (new Date()).getTime();
+        System.out.println(compress1(STR));
+        time2 = (new Date()).getTime();
+        System.out.println("compress1 :: " + (time2-time1));
     }
+
+
 
     private static String compress2(String str){
 
@@ -67,6 +74,7 @@ public class CompressString {
         return result;
     }
 
+    //todo доделать свою реализацию
     private static String compress1(String str) {
         if (str == null) return null;
         if (str.length() == 1) return str;
