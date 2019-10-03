@@ -1,24 +1,44 @@
 package javaexams.alg;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CompressString {
     public static void main(String[] args) {
-        System.out.println(compress2("AAAABBBBBB"));
-        System.out.println(compress2("ABBA"));
-        System.out.println(compress2("ABBACCC"));
+//        System.out.println(compress2("AAAABBBBBB"));
+//        System.out.println(compress2("ABBA"));
+//        System.out.println(compress2("ABBACCC"));
+//
+//        System.out.println(null == compress2(null));
+//        System.out.println("A".equals(compress2("A")));
+//        System.out.println("A3".equals(compress2("AAA")));
+//        System.out.println("AB2A".equals(compress2("ABBA")));
+//        System.out.println("AB2AC3".equals(compress2("ABBACCC")));
+        long time1, time2;
 
-        System.out.println(null == compress2(null));
-        System.out.println("A".equals(compress2("A")));
-        System.out.println("A3".equals(compress2("AAA")));
-        System.out.println("AB2A".equals(compress2("ABBA")));
-        System.out.println("AB2AC3".equals(compress2("ABBACCC")));
+        time1 = (new Date()).getTime();
+        System.out.println(compress3(STR));
+        time2 = (new Date()).getTime();
+        System.out.println("compress hot :: " + (time2-time1));
 
-        System.out.println(compress2("AAAAABBCFdfghsjdkjhgdfQQW "));
+        time1 = (new Date()).getTime();
+        System.out.println(compress3(STR));
+        time2 = (new Date()).getTime();
+        System.out.println("compress3 :: " + (time2-time1));
+
+        time1 = (new Date()).getTime();
+        System.out.println(compress2(STR));
+        time2 = (new Date()).getTime();
+        System.out.println("compress2 :: " + (time2-time1));
+
+
+
+
     }
 
     private static String compress2(String str){
+
         if (str == null) return null;
         if (str.length() == 1) return str;
         String result = str;
@@ -27,11 +47,28 @@ public class CompressString {
         Matcher matcher = pattern.matcher(str);
         if (matcher.find()) {
             int n = matcher.group(2).length();
+           // System.out.println(matcher.group(2));
             n++;
             result = matcher.replaceFirst("$1" + n);
             b = true;
         }
         if (b) result = compress2(result);
+
+        return result;
+    }
+
+    private static String compress3(String str){
+        if (str == null) return null;
+        if (str.length() == 1) return str;
+        String result = str;
+        Pattern pattern = Pattern.compile("(\\w)(\\1+)");
+        Matcher matcher = pattern.matcher(result);
+        while (matcher.find()) {
+            int n = matcher.group(2).length();
+            n++;
+            result = matcher.replaceFirst("$1" + n);
+            matcher = pattern.matcher(result);
+        }
         return result;
     }
 
@@ -70,4 +107,6 @@ public class CompressString {
 
         return result.toString();
     }
+
+    private static String STR = "AAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasdahjsdhjsaHJLKHLHLHhsjahsjhajshjahsроPPPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGHAAAAABBCFdfghsjdkjhgdfQQWasGFFFFGsdasda hjsdhjsa HJLKHLHLHhsjahsjhajshjahsроPPPPPPdasdkjhaskjdkajfsdfaerererGGGGGGGGGGGDHGGH";
 }
