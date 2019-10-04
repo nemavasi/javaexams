@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class TODOExecutorServiceNOTShutdown {
+public class ExecutorServiceNOTTerminated {
 
     public static void main(String[] args) {
         ExecutorService service = Executors.newFixedThreadPool(1);
@@ -30,7 +30,7 @@ public class TODOExecutorServiceNOTShutdown {
                 }
         );
 
-        service.shutdown();
+        service.shutdown();  //новые таски не принимаются
         try {
             service.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -45,6 +45,16 @@ public class TODOExecutorServiceNOTShutdown {
             System.out.println("end finally");
         }
 
-        System.out.println("end main " + service.isShutdown());
+        System.out.println("status " + service.isShutdown() + " " + service.isTerminated()); //true   false
+        //service.isShutdown() показывает что в пул больше не принимаются новые задачи
+        //service.isTerminated() показывает что пул остановлен
+
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("end main " + service.isShutdown() + " " + service.isTerminated()); //true   false
     }
 }
