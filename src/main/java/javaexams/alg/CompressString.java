@@ -29,22 +29,22 @@ public class CompressString {
         long time1, time2;
 
         time1 = (new Date()).getTime();
-        System.out.println(compress2(STR));
+        System.out.println(compress2(STR).length());
         time2 = (new Date()).getTime();
         System.out.println("compress hot :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
-        System.out.println(compress1(STR));
+        System.out.println(compress1(STR).length());
         time2 = (new Date()).getTime();
         System.out.println("compress1 :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
-        System.out.println(compress2(STR));
+        System.out.println(compress2(STR).length());
         time2 = (new Date()).getTime();
         System.out.println("compress2 :: " + (time2 - time1));
 
         time1 = (new Date()).getTime();
-        System.out.println(compress3(STR));
+        System.out.println(compress3(STR).length());
         time2 = (new Date()).getTime();
         System.out.println("compress3:: " + (time2 - time1));
 
