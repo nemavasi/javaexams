@@ -27,33 +27,33 @@ public class CompressString {
 //        System.out.println("AB2AC3".equals(compress1("ABBACCC")));
 
 
-//        long time1, time2;
-//
-//        time1 = (new Date()).getTime();
-//        System.out.println(compress2(STR).length());
-//        time2 = (new Date()).getTime();
-//        System.out.println("compress hot :: " + (time2 - time1));
-//
-//        time1 = (new Date()).getTime();
-//        System.out.println(compress1(STR).length());
-//        time2 = (new Date()).getTime();
-//        System.out.println("compress1 :: " + (time2 - time1));
-//
-//        time1 = (new Date()).getTime();
-//        System.out.println(compress2(STR).length());
-//        time2 = (new Date()).getTime();
-//        System.out.println("compress2 :: " + (time2 - time1));
-//
-//        time1 = (new Date()).getTime();
-//        System.out.println(compress3(STR).length());
-//        time2 = (new Date()).getTime();
-//        System.out.println("compress3:: " + (time2 - time1));
-//
-//
-//        time1 = (new Date()).getTime();
-//        System.out.println(compress4(STR).length());
-//        time2 = (new Date()).getTime();
-//        System.out.println("compress4:: " + (time2 - time1));
+        long time1, time2;
+
+        time1 = (new Date()).getTime();
+        System.out.println(compress2(STR).length());
+        time2 = (new Date()).getTime();
+        System.out.println("compress hot :: " + (time2 - time1));
+
+        time1 = (new Date()).getTime();
+        System.out.println(compress1(STR).length());
+        time2 = (new Date()).getTime();
+        System.out.println("compress1 :: " + (time2 - time1));
+
+        time1 = (new Date()).getTime();
+        System.out.println(compress2(STR).length());
+        time2 = (new Date()).getTime();
+        System.out.println("compress2 :: " + (time2 - time1));
+
+        time1 = (new Date()).getTime();
+        System.out.println(compress3(STR).length());
+        time2 = (new Date()).getTime();
+        System.out.println("compress3:: " + (time2 - time1));
+
+
+        time1 = (new Date()).getTime();
+        System.out.println(compress4(STR).length());
+        time2 = (new Date()).getTime();
+        System.out.println("compress4:: " + (time2 - time1));
 
     }
 
