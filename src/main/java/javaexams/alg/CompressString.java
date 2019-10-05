@@ -7,47 +7,53 @@ import java.util.regex.Pattern;
 public class CompressString {
     public static void main(String[] args) {
         System.out.println(compress1(STR).equals(compress2(STR)));
+        System.out.println(compress1(STR).equals(compress3(STR)));
+        System.out.println(compress1(STR).equals(compress4(STR)));
 //        System.out.println(compress1(STR));
 //        System.out.println(compress2(STR));
 
-        System.out.println(compress1(STR).equals(compress3(STR)));
-        System.out.println(compress2(STR).equals(compress3(STR)));
 
-//        System.out.println(compress1("AAAABBBBBB"));
+
+//        System.out.println(compress4("AAAABBBBBB"));
 //        ////System.out.println(new StringBuilder().append("abcd", 2 ,3).toString());
 //
-//        System.out.println(compress1("ABBA"));
-//        System.out.println(compress1("ABBACCC"));
+//        System.out.println(compress4("ABBA"));
+//        System.out.println(compress4("ABBACCC"));
+////
+////        System.out.println(null == compress2(null));
+//        System.out.println("A".equals(compress1("A")));
+//        System.out.println("A3".equals(compress1("AAA")));
+//        System.out.println("AB2A".equals(compress1("ABBA")));
+//        System.out.println("AB2AC3".equals(compress1("ABBACCC")));
+
+
+//        long time1, time2;
 //
-//        System.out.println(null == compress2(null));
-//        System.out.println("A".equals(compress2("A")));
-//        System.out.println("A3".equals(compress2("AAA")));
-//        System.out.println("AB2A".equals(compress2("ABBA")));
-//        System.out.println("AB2AC3".equals(compress2("ABBACCC")));
-
-
-        long time1, time2;
-
-        time1 = (new Date()).getTime();
-        System.out.println(compress2(STR).length());
-        time2 = (new Date()).getTime();
-        System.out.println("compress hot :: " + (time2 - time1));
-
-        time1 = (new Date()).getTime();
-        System.out.println(compress1(STR).length());
-        time2 = (new Date()).getTime();
-        System.out.println("compress1 :: " + (time2 - time1));
-
-        time1 = (new Date()).getTime();
-        System.out.println(compress2(STR).length());
-        time2 = (new Date()).getTime();
-        System.out.println("compress2 :: " + (time2 - time1));
-
-        time1 = (new Date()).getTime();
-        System.out.println(compress3(STR).length());
-        time2 = (new Date()).getTime();
-        System.out.println("compress3:: " + (time2 - time1));
-
+//        time1 = (new Date()).getTime();
+//        System.out.println(compress2(STR).length());
+//        time2 = (new Date()).getTime();
+//        System.out.println("compress hot :: " + (time2 - time1));
+//
+//        time1 = (new Date()).getTime();
+//        System.out.println(compress1(STR).length());
+//        time2 = (new Date()).getTime();
+//        System.out.println("compress1 :: " + (time2 - time1));
+//
+//        time1 = (new Date()).getTime();
+//        System.out.println(compress2(STR).length());
+//        time2 = (new Date()).getTime();
+//        System.out.println("compress2 :: " + (time2 - time1));
+//
+//        time1 = (new Date()).getTime();
+//        System.out.println(compress3(STR).length());
+//        time2 = (new Date()).getTime();
+//        System.out.println("compress3:: " + (time2 - time1));
+//
+//
+//        time1 = (new Date()).getTime();
+//        System.out.println(compress4(STR).length());
+//        time2 = (new Date()).getTime();
+//        System.out.println("compress4:: " + (time2 - time1));
 
     }
 
@@ -85,6 +91,33 @@ public class CompressString {
         }
         return result;
     }
+
+    //решение О(n) на циклах while
+    private static String compress4(String str) {
+        //fast path
+        if (str == null) return null;
+        if (str.length() == 1) return str;
+
+        StringBuilder sb = new StringBuilder();
+
+        char last; // = str.charAt(0);
+        int i = 0;
+        while (i < str.length()){
+            last = str.charAt(i);
+            sb.append(last);
+            int counter = 0;
+            while (i < str.length() && str.charAt(i) == last) {
+                counter++;
+                i++;
+            }
+            if (counter > 1) {
+                sb.append(counter);
+            }
+
+        }
+        return sb.toString();
+    }
+
 
     //решение без регулярных выражений сложностью O(n)
     private static String compress1(String str) {
