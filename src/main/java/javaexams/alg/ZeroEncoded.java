@@ -17,63 +17,79 @@ import java.util.stream.IntStream;
 
 public class ZeroEncoded {
 
-
-    private static String convert(String str){
+    /**
+     * работа через строки - очень плохо по памяти
+     * */
+    private static String convert(String str2) {
+        String str = str2
+                        .chars()
+                        .boxed()
+                        .map(Integer::toBinaryString)
+                        .map(x -> {
+                                    if (x.length() == 7) {
+                                        return x;
+                                    } else {
+                                        StringBuilder zeros = new StringBuilder("0");
+                                        for (int i = 0; i < (7 - x.length() - 1); i++) {
+                                            zeros.append("0");
+                                        }
+                                        zeros.append(x);
+                                        return zeros.toString();
+                                    }
+                                }
+                        )
+                        //.map(ZeroEncoded::convert)
+                        .peek(System.out::println)
+                        .collect(Collectors.joining());
 
         StringBuilder sb = new StringBuilder(str.length());
 
         int i = 0;
-        while (i < str.length()){
+        while (i < str.length()) {
             int count = 0;
-            while (i < str.length() && str.charAt(i)=='0'){
+            while (i < str.length() && str.charAt(i) == '0') {
                 count++;
                 i++;
             }
-            if (count > 0){
-                sb.append("00 " + IntStream.range(0, count).boxed().map(x->"0").collect(Collectors.joining()) + " "); //.collect(Collectors.joining()));
+            if (count > 0) {
+                sb.append("00 " + IntStream.range(0, count).boxed().map(x -> "0").collect(Collectors.joining()) + " "); //.collect(Collectors.joining()));
             }
             count = 0;
-            while (i < str.length() && str.charAt(i)=='1'){
+            while (i < str.length() && str.charAt(i) == '1') {
                 count++;
                 i++;
             }
-            if (count > 0){
-                sb.append("0 " + IntStream.range(0, count).boxed().map(x->"0").collect(Collectors.joining()) + " "); //.collect(Collectors.joining()));
+            if (count > 0) {
+                sb.append("0 " + IntStream.range(0, count).boxed().map(x -> "0").collect(Collectors.joining()) + " "); //.collect(Collectors.joining()));
             }
 
         }
-
         return sb.toString();
     }
 
 
+    private static String convert2(String str) {
+        String TEXT = str; //"Chuck Norris' keyboard has 2 keys: 0 and white space.";
+        char[] MESSAGE = TEXT.toCharArray();
+        boolean pbit = (MESSAGE[0] & 0x40) != 0;
+        StringBuilder sb = new StringBuilder(str.length());
+        sb.append(pbit ? "0 " : "00 ");
+        for (char B : MESSAGE) {
+            for (char bm = 0x40; bm != 0; bm >>= 1) {
+                boolean bit = (B & bm) != 0;
+                sb.append((bit == pbit) ? "0" : bit ? " 0 0" : " 00 0");
+                pbit = bit;
+            }
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
-        String result =
+        String str = "Chuck Norris' keyboard has 2 keys: 0 and white space.";
 
-            "1Asosz"
-                .chars()
-                .boxed()
-                .map(Integer::toBinaryString)
-                .map(x -> {
-                            if (x.length() == 7) {
-                                return x;
-                            } else {
-                                StringBuilder zeros = new StringBuilder("0");
-                                for (int i = 0; i<(7 - x.length() - 1); i++){
-                                    zeros.append("0");
-                                }
-                                zeros.append(x);
-                                return zeros.toString();
-                            }
-                        }
-                )
-                //.map(ZeroEncoded::convert)
-                .peek(System.out::println)
-                .collect(Collectors.joining())
-
-                ;
-
-        System.out.println(result);
-        System.out.println(convert(result));
+        System.out.println(convert(str));
+        System.out.println(convert2(str));
+        System.out.println(convert("C"));
+        System.out.println(convert2("C"));
     }
 }
