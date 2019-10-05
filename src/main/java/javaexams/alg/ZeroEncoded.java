@@ -46,9 +46,6 @@ public class ZeroEncoded {
         return sb.toString();
     }
 
-    public static void main2(String[] args) {
-        IntStream.range(0, 7).boxed().map(x->"6").forEach(System.out::println);
-    }
 
     public static void main(String[] args) {
         String result =
