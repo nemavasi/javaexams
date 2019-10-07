@@ -1,4 +1,4 @@
-package javaexams.concurrency;
+package javaexams.concurrency.executors;
 
 import java.time.LocalDate;
 import java.util.concurrent.Executors;

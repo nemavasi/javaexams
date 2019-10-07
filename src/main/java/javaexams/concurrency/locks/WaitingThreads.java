@@ -1,4 +1,4 @@
-package javaexams.concurrency;
+package javaexams.concurrency.locks;
 
 import java.util.ArrayList;
 import java.util.Collection;

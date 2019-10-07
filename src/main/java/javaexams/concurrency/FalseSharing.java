@@ -25,7 +25,7 @@ public class FalseSharing {
 
     protected static volatile int[] m = new int[100];
     private final static int x = 0;
-    private final static int y = 99; //99
+    private final static int y = 1; //99
 
     public static void main(String[] args) throws InterruptedException {
 

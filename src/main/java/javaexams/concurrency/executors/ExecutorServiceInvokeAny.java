@@ -1,4 +1,4 @@
-package javaexams.concurrency;
+package javaexams.concurrency.executors;
 
 import java.util.ArrayList;
 import java.util.Arrays;

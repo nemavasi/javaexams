@@ -1,4 +1,4 @@
-package javaexams.concurrency;
+package javaexams.concurrency.executors;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

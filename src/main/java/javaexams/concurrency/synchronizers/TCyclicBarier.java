@@ -1,4 +1,4 @@
-package javaexams.concurrency;
+package javaexams.concurrency.synchronizers;
 
 import java.util.ArrayList;
 import java.util.List;

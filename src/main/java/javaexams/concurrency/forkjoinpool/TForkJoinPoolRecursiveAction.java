@@ -1,10 +1,10 @@
-package javaexams.concurrency;
+package javaexams.concurrency.forkjoinpool;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.RecursiveAction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 /**
  * Created by dshalygin on 2/11/19.
  */
-public class TForkJoinPool {
+public class TForkJoinPoolRecursiveAction {
     public static void main(String[] args) {
         Date date1 = new Date();
 
-        Stream<String> stream = IntStream.range(0, 5999999).mapToObj(x-> UUID.randomUUID().toString());
+        Stream<String> stream = IntStream.range(0, 599999).mapToObj(x-> UUID.randomUUID().toString());
         MyRecursiveTask recursiveTask = new MyRecursiveTask(stream.collect(Collectors.toList()));
         String res = ForkJoinPool.commonPool().invoke(recursiveTask);
         System.out.println(res.length());
@@ -29,26 +29,26 @@ public class TForkJoinPool {
 
 }
 
-class MyRecursiveTask extends RecursiveTask<String> {
+class MyRecursiveAction extends RecursiveAction {
     private List<String> arr;
 
-    public MyRecursiveTask(List<String> arr) {
+    public MyRecursiveAction(List<String> arr) {
         super();
         this.arr = arr;
     }
 
     @Override
-    protected String compute() {
+    protected void compute() {
         if (arr.size() == 0) {
-            return null;
+            return ;
         }
 
         if (arr.size() == 1) {
-            return arr.get(0);
+            return;
         }
 
         if (arr.size() == 2) {
-            return arr.get(0) + arr.get(1);
+            return;
         }
 
 
@@ -63,7 +63,7 @@ class MyRecursiveTask extends RecursiveTask<String> {
         String str2 = task2.join(); //Блокируется, пока задача не закончится
         String str1 = task1.join();
 
-        return str1 + str2;
+        return ;
 
     }
 
