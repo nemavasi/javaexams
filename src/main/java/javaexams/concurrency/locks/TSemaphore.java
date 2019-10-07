@@ -28,12 +28,21 @@ public class TSemaphore {
                 if (permit) {
                     semaphore.release();
                 }
+                System.out.println("task ended");
             }
         };
 
         IntStream.range(0, 10)
                 .forEach(i -> executor.submit(longRunningTask));
 
-
+        try {
+            TimeUnit.SECONDS.sleep(5);
+            executor.shutdown();
+            executor.awaitTermination(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            if (!executor.isTerminated()) {
+                executor.shutdownNow();
+            }
+        }
     }
 }
