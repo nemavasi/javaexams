@@ -13,9 +13,9 @@ public class TAtomicInteger {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         IntStream.range(0, 1000)
-                .forEach(i -> {
+                .forEach(newValue -> {
                     Runnable task = () ->
-                            atomicInt.accumulateAndGet(i, (n, m) -> n + m);
+                            atomicInt.accumulateAndGet(newValue, (prev, next) -> prev + next);
                     executor.submit(task);
                 });
 
