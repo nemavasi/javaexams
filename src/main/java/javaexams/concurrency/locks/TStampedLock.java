@@ -75,9 +75,9 @@ public class TStampedLock {
 //        locked read
 //        locked read
 //        Cezar
-//                Cezar
+//        Cezar
 //        Noy
-//                Noy
+//        Noy
 
 
     }
