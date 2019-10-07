@@ -7,8 +7,6 @@ public class TReentrantLock {
 
     private static ReentrantLock reentrantLock = new ReentrantLock();
 
-
-
     public static void main(String[] args) {
         Runnable r1 = ()-> {
             try {
