@@ -14,6 +14,6 @@ public class PyramidOdds {
     }
 
     private static int foo(int n) {
-        return 0;
+        return n * n * n; //математически выводиться через арифмитическую прогрессию
     }
 }
