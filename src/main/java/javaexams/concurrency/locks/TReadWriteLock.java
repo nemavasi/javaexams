@@ -30,24 +30,6 @@ public class TReadWriteLock {
                 System.out.println(Thread.currentThread().getName() + " - writer unlocked");
             }
 
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                obj.rwLock.writeLock().lock();
-                System.out.println(Thread.currentThread().getName() + " - writer locked");
-                TimeUnit.SECONDS.sleep(2);
-                obj.map.put("time", (new SimpleDateFormat("hh:mm:ss")).format(new Date()));
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                obj.rwLock.writeLock().unlock();
-                System.out.println(Thread.currentThread().getName() + " - writer unlocked");
-            }
             return null;
         };
 
@@ -60,8 +42,8 @@ public class TReadWriteLock {
                     TimeUnit.SECONDS.sleep(1);
                     obj.rwLock.readLock().lock();
                     System.out.println(Thread.currentThread().getName() + " - reader locked");
-                    System.out.println(obj.map.get("time"));
-                    TimeUnit.SECONDS.sleep(10);
+                    System.out.println("time = " + obj.map.get("time"));
+                    TimeUnit.SECONDS.sleep(3);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
