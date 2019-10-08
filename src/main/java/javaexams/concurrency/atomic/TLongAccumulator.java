@@ -12,7 +12,8 @@ public class TLongAccumulator {
 
         //не гарантируется порядок вычислений
         //поэтому функцию надо подбирать чтобы результат не зависел от порядка выбора пар элементов в последовательности
-        LongBinaryOperator op = (x, y) -> (x * y);
+        //данный пример корректный так как x - значение аккумулятора, y - дополнительное значение
+        LongBinaryOperator op = (x, y) -> (x + 2 * y);
         LongAccumulator accumulator = new LongAccumulator(op, 1L);
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
@@ -24,6 +25,6 @@ public class TLongAccumulator {
         TimeUnit.SECONDS.sleep(5);
         System.out.println(accumulator.getThenReset());
 
-        //362880
+        //91
     }
 }
