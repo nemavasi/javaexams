@@ -18,9 +18,9 @@ public class TConcurrentHashSet {
         Set<String> set = Collections.newSetFromMap(map); //!!!!!!
 
         IntStream.range(0, 1000)
-                .forEach(x->es.submit(()-> set.add(Integer.valueOf(x).toString().substring(0,2)))); // + Thread.currentThread().getName()
+                .forEach(x->es.submit(()-> set.add(Integer.valueOf(x).toString().substring(0,2) + Thread.currentThread().getName()))); //
         TimeUnit.SECONDS.sleep(5);
-        System.out.println(set.size());
+        System.out.println(set);
         es.shutdown();
     }
 }
