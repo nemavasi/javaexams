@@ -20,9 +20,8 @@ public class TAtomicInteger {
                             atomicInt2.updateAndGet((oldValue) -> oldValue + newValue);            //IntUnaryOperator
                     executor.submit(task);
                 });
-
-        TimeUnit.SECONDS.sleep(3);  //ждем когда все потоки отработают - иначе можно получить результат промежуточный
         executor.shutdown();
+        TimeUnit.SECONDS.sleep(3);  //ждем когда все потоки отработают - иначе можно получить результат промежуточный
         System.out.println(atomicInt.get());    // => 499500
         System.out.println(atomicInt2.get());    // => 499500
     }
