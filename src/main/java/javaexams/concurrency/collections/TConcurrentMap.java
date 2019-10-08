@@ -36,6 +36,5 @@ public class TConcurrentMap {
         map.merge("foo", "boo", (old, nw) -> nw + " was " + old);
         map.forEach((k, v) -> System.out.println(k + " :: " + v));
 
-
     }
 }
