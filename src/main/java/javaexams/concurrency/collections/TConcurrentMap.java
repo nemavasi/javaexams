@@ -14,11 +14,11 @@ public class TConcurrentMap {
         map.put("han", "solo");
         map.put("r2", "d2");
         map.put("c3", "p0");
-        map.forEach((k, v) -> System.out.println(k + " " + v));
+        map.forEach((k, v) -> System.out.println(k + " :: " + v));
         System.out.println("**************************************");
 
         map.putIfAbsent("foo", "222");
-        map.forEach((k, v) -> System.out.println(k + " " + v));
+        map.forEach((k, v) -> System.out.println(k + " :: " + v));
         System.out.println("**************************************");
 
         System.out.println(map.getOrDefault("foo", "Ok"));
@@ -30,6 +30,12 @@ public class TConcurrentMap {
         map.compute("sdsdfsdf", (k, v) -> "newv");            //    если ключа нет добавляется новая запись
         map.computeIfAbsent("c3", (v) -> "zzz");
         map.computeIfPresent("foo", (k, v) -> "qqq");
-        map.forEach((k, v) -> System.out.println(k + " " + v));
+        map.forEach((k, v) -> System.out.println(k + " :: " + v));
+        System.out.println("**************************************");
+
+        map.merge("foo", "boo", (old, nw) -> nw + " was " + old);
+        map.forEach((k, v) -> System.out.println(k + " :: " + v));
+
+
     }
 }
