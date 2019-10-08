@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentMap;
 public class TConcurrentMap {
     public static void main(String[] args) {
 
+        //предполагается что ConcurrentMap не может хранить null в качестве значения. Возврат null означает отсутствие записи
         ConcurrentMap<String, String> map = new ConcurrentHashMap<>();
 
         map.put("foo", "bar");
