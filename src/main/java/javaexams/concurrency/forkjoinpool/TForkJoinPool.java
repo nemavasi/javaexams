@@ -14,6 +14,10 @@ import java.util.stream.Stream;
  */
 public class TForkJoinPool {
     public static void main(String[] args) {
+
+        //можно поменять -Djava.util.concurrent.ForkJoinPool.common.parallelism=5
+        System.out.println(ForkJoinPool.getCommonPoolParallelism());
+
         Date date1 = new Date();
 
         Stream<String> stream = IntStream.range(0, 5999999).mapToObj(x-> UUID.randomUUID().toString());
