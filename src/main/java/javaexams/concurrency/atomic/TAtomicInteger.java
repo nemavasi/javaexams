@@ -19,7 +19,7 @@ public class TAtomicInteger {
                     executor.submit(task);
                 });
 
-        TimeUnit.SECONDS.sleep(3);  //ждем когда все потоки отработаеют - иначе можно получить результат промежуточный
+        TimeUnit.SECONDS.sleep(3);  //ждем когда все потоки отработают - иначе можно получить результат промежуточный
         executor.shutdown();
         System.out.println(atomicInt.get());    // => 499500
     }
