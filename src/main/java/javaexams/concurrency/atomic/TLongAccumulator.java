@@ -11,7 +11,7 @@ public class TLongAccumulator {
     public static void main(String[] args) throws Exception {
 
         //не гарантируется порядок вычислений
-        //поэтому функцию надо подбирать чтобы результат не зависел от порядка вычислений
+        //поэтому функцию надо подбирать чтобы результат не зависел от порядка выбора пар элементов в последовательности
         LongBinaryOperator op = (x, y) -> (x * y);
         LongAccumulator accumulator = new LongAccumulator(op, 1L);
 
