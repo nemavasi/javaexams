@@ -16,7 +16,7 @@ public class TAtomicInteger {
         IntStream.range(0, 1000)
                 .forEach(newValue -> {
                     Runnable task = () ->
-                            atomicInt.accumulateAndGet(newValue, (prev, next) -> prev + next);     //IntBinaryOperator
+                            atomicInt.accumulateAndGet(newValue, Integer::sum);     //IntBinaryOperator
                             atomicInt2.updateAndGet((oldValue) -> oldValue + newValue);            //IntUnaryOperator
                     executor.submit(task);
                 });
