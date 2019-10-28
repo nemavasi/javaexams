@@ -66,6 +66,7 @@ public class Bard extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.println(phaser.getUnarrivedParties());
             phaser.arriveAndAwaitAdvance();
         }
     }
