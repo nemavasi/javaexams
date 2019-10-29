@@ -16,41 +16,71 @@ import java.util.concurrent.Exchanger;
 import java.util.concurrent.Phaser;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Bard2 {
+public class Bard2 implements Runnable {
 
     private List<String> song;
     private String name;
     private AtomicReference<Bard2> speaker;
     private Phaser phaser;
-    private Exchanger<String> exchanger;
+    private Exchanger<String> exchanger = new Exchanger<>();
     private List<String> newSong = new ArrayList<>();
+    private List<Bard2> bardList;
 
-    //private
 
-    public Bard2(List<String>  song, String name, AtomicReference<Bard2> speaker, Phaser phaser, Exchanger<String> exchanger) {
+    public Bard2(List<String> song, String name, AtomicReference<Bard2> speaker, Phaser phaser, List<Bard2> bardList) {
         this.song = song;
         this.name = name;
         this.speaker = speaker;
         this.phaser = phaser;
-        this.exchanger = exchanger;
+        this.bardList = bardList;
     }
 
-    public void tellWordsToOthers () throws Exception{
-        for (int i=0; i < 2; i++) {
+    @Override
+    public void run() {
+        try {
+            tellWordsToOthers();
             phaser.arriveAndAwaitAdvance();
-            if (speaker.get() != this) {
+            singTogether();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void tellWordsToOthers() throws Exception {
+        int receiveCount = 0; //количество полученных слов
+        int sendCount = 0;    //количество отправленных слов (одно и тоже слово считается 1 раз)
+        while (sendCount < 2 || receiveCount < (bardList.size() - 1) * 2) {
+            System.out.println("phase #" + phaser.getPhase());
+            phaser.arriveAndAwaitAdvance();
+            Bard2 oldSender = speaker.get();
+            phaser.arriveAndAwaitAdvance();
+            if (sendCount < 2 && oldSender != this) {
                 speaker.set(this);
             }
             phaser.arriveAndAwaitAdvance();
-            if (speaker.get() == this) {
-                exchanger.exchange(song.get(i));
-                exchanger.exchange(song.get(i));
-                exchanger.exchange(song.get(i));
+            if (speaker.get() == this && sendCount < 2 ) {
+                for (Bard2 bard : bardList) {
+                    if (bard != this) {
+                        System.out.println(name + " is sending to get...");
+                        bard.exchanger.exchange(song.get(sendCount));
+                    }
+                }
+                newSong.add(song.get(sendCount));
+                sendCount++;
             } else {
+                System.out.println(name + " is waiting to get...");
                 String wordFromOther = exchanger.exchange(null);
+                receiveCount++;
+
                 newSong.add(wordFromOther);
             }
+            System.out.println(name + " send: " + sendCount + " receive: " + receiveCount);
         }
+
+    }
+
+    private void singTogether() {
+        System.out.println(name + " " + newSong);
     }
 
     public static void main(String[] args) throws Exception {
@@ -59,16 +89,11 @@ public class Bard2 {
         Exchanger<String> exchanger = new Exchanger<>();
 
         List<Bard2> bards = new ArrayList<>();
-        bards.add(new Bard2(Arrays.asList("Hello", "world", "Java", "People"), "Jack", speaker, phaser, exchanger));
-        bards.add(new Bard2(Arrays.asList("Hello", "world", "Java", "People"), "Jack", speaker, phaser, exchanger));
-        bards.add(new Bard2(Arrays.asList("Hello", "world", "Java", "People"), "Jack", speaker, phaser, exchanger));
-        bards.add(new Bard2(Arrays.asList("Hello", "world", "Java", "People"), "Jack", speaker, phaser, exchanger));
+        bards.add(new Bard2(Arrays.asList("Учил", "я", "Java", "между"), "Jack", speaker, phaser, bards));
+        bards.add(new Bard2(Arrays.asList("делом", "а", "таже", "Python"), "Alice", speaker, phaser, bards));
+        bards.add(new Bard2(Arrays.asList("и", "C#", "вот только", "лучше"), "Bob", speaker, phaser, bards));
+        bards.add(new Bard2(Arrays.asList("надо", "было", "красивых", "девушек", "знать"), "Antony", speaker, phaser, bards));
 
-        for(Bard2 bard : bards){
-            bard.tellWordsToOthers();
-        }
-
-        System.out.println(bards.get(0).newSong);
-
+        bards.forEach(t -> new Thread(t).start());
     }
 }
