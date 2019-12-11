@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 public class Assignment {
 
-    private static int[] arr = new int[]{1, 2, 3, 4};
+    private static int[] arr = new int[]{1, 2, 3, 4}; //по факту переменная типа массив - ссылочная (объектная)
+                                                      //т.е. хранит адрес
     private static Integer[] arrObj = new Integer[]{5, 6, 7, 8};
 
     public static void main(String[] args) {
