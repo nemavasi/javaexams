@@ -17,5 +17,8 @@ public class TstLogback {
     logger.error("error Example log from {}", TstLogback.class.getSimpleName());
 
     logger2.info("info Example log from {}", TstLogback.class.getSimpleName());
+
+
+    new ExampleHandbook().foo();
   }
 }

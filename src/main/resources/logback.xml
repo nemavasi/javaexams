@@ -4,6 +4,9 @@
     <property name="catalina.base" value="/home/nemavasi/devel/javaexams/target"/>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <filter class="logback.SampleFilter" />
+
         <file>${catalina.base}/logs/journal-sender.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>${catalina.base}/logs/journal-sender.%i.log.zip</fileNamePattern>
