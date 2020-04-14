@@ -12,6 +12,8 @@ public class SampleFilter extends Filter<ILoggingEvent> {
   public FilterReply decide(ILoggingEvent event) {
     System.out.println(event.getFormattedMessage());
     System.out.println(Arrays.toString(event.getArgumentArray()));
+    System.out.println(event.getLoggerName());
+    System.out.println(event.getMDCPropertyMap());
     if (event.getFormattedMessage().contains("Handbook")) {
       return FilterReply.ACCEPT;
     } else {
