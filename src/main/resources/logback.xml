@@ -38,10 +38,10 @@
         <appender-ref ref="KAFKA"/>
     </logger>
 
-    <root level="trace">
+    <root level="error">
         <appender-ref ref="FILE"/>
     </root>
 
-    <logger name="ru" level="info"/>
+    <logger name="ru" level="trace"/>
 
 </configuration>
