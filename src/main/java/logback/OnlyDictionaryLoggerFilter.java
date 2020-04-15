@@ -6,7 +6,7 @@ import ch.qos.logback.core.spi.FilterReply;
 
 import java.util.Arrays;
 
-public class SampleFilter extends Filter<ILoggingEvent> {
+public class OnlyDictionaryLoggerFilter extends Filter<ILoggingEvent> {
 
   @Override
   public FilterReply decide(ILoggingEvent event) {
@@ -17,7 +17,7 @@ public class SampleFilter extends Filter<ILoggingEvent> {
     if (event.getFormattedMessage().contains("Handbook")) {
       return FilterReply.ACCEPT;
     } else {
-      return FilterReply.DENY;
+      return FilterReply.NEUTRAL;
     }
   }
 }

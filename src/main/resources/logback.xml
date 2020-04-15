@@ -5,11 +5,29 @@
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-        <filter class="logback.SampleFilter" />
+        <filter class="logback.NotDictionaryLoggerFilter" />
 
         <file>${catalina.base}/logs/journal-sender.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>${catalina.base}/logs/journal-sender.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%date %-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILEDICT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <filter class="logback.OnlyDictionaryLoggerFilter" />
+
+        <file>${catalina.base}/logs/dictionaries.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/logs/dictionaries.%i.log.zip</fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>5</maxIndex>
         </rollingPolicy>
@@ -43,6 +61,7 @@
 
     <root level="error">
         <appender-ref ref="FILE"/>
+        <appender-ref ref="FILEDICT"/>
     </root>
 
     <logger name="ru" level="trace"/>
