@@ -17,7 +17,7 @@ public class NotDictionaryLoggerFilter extends Filter<ILoggingEvent> {
     if (event.getFormattedMessage().contains("Handbook")) {
       return FilterReply.DENY;
     } else {
-      return FilterReply.NEUTRAL;
+      return FilterReply.ACCEPT;
     }
   }
 }
