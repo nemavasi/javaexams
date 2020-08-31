@@ -2,6 +2,7 @@ package javaexams.groovyinjava;
 
 import groovy.util.Eval;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,8 @@ public class TstGroovy {
 
     final Map datas = new HashMap();
     datas.put("pocket", "{\"id\":\"123\", \"value\":15.6 }");
-    String code = "class Account {\n" +
+    String code =
+          "class Account {\n" +
         "\t    String id\n" +
         "\t    BigDecimal value\n" +
         "\t    Date createdAt\n" +
@@ -36,6 +38,12 @@ public class TstGroovy {
     result = Eval.me("params", datas, code).toString();
     System.out.println(result);
 
+//    class Account {
+//        String id;
+//        float value;
+//        Date createdAt;
+//        }
+//    ;
 
   }
 }

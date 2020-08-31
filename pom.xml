@@ -14,6 +14,7 @@
     <properties>
         <postgres.version>9.1-901-1.jdbc4</postgres.version>
         <slf4j.version>1.7.22</slf4j.version>
+        <groovy.version>3.0.4</groovy.version>
     </properties>
 
 
@@ -80,11 +81,16 @@
             <version>3.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>3.0.5</version>
-            <type>pom</type>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-json</artifactId>
+            <version>${groovy.version}</version>
         </dependency>
 
     </dependencies>
