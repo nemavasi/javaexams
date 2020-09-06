@@ -2,7 +2,6 @@ package javaexams.groovyinjava;
 
 import groovy.util.Eval;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
