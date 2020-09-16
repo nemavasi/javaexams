@@ -63,7 +63,7 @@ public class HiddenNotifyOnThreads {
       System.out.println("Thread End");
     });
 
-    synchronized (thread) {
+    synchronized (thread) {  //если заменить монитор - то  "Main End" никогда не напечатается
       thread.start();
       thread.wait();
     }
