@@ -72,7 +72,7 @@ public class HiddenNotifyOnThreads {
 
 
 //    public static void main(String[] args) throws InterruptedException {
-//        Thread thread = new Thread(()-> new Runnable(){
+//        Thread thread = new Thread(()-> new Runnable(){ //это совсем не то - просто будет создан Runnable и выкинут
 //            @Override
 //            public void run() {
 //                System.out.println("Thread End");
