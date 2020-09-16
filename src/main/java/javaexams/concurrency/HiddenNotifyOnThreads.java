@@ -1,7 +1,6 @@
 package javaexams.concurrency;
 
-public class SpuriousWakeups {
-
+public class HiddenNotifyOnThreads {
   // объяснение кто вызывает notify на thread видимо такое - https://stackoverflow.com/questions/9866193/who-and-when-notify-the-thread-wait-when-thread-join-is-called
   /**
    * /jdk7/hotspot/src/share/vm/runtime/thread.cpp
@@ -50,6 +49,10 @@ public class SpuriousWakeups {
    *  As a thread terminates the this.notifyAll method is invoked. It is recommended that applications not use wait, notify, or notifyAll on Thread instances.
    */
 
+  /**
+   * Блин - wait еще и кроме этого через spurious wakeups может разбулиться - поэтому юзай wait в цикле с проверкой переменной
+   * */
+
   public static void main(String[] args) throws InterruptedException {
 
     Thread thread = new Thread(() -> {
@@ -87,5 +90,4 @@ public class SpuriousWakeups {
 //        http://www.ya.ru
 //        System.out.println("world");
 //    }
-
 }
