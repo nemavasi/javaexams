@@ -14,8 +14,8 @@ public class TReduce extends BaseCheck {
 
         Double sum = IntStream.of(0, 6 ,7, 56, 4)
                 .asDoubleStream()
-                .reduce(100, (x , y) -> Math.max(x,y))
-                //.getAsDouble()
+                .reduce(40, Math::max)
+           // .reduce(40, (x , y) -> Math.max(x,y)) //аналогично
                 ;
         p(sum);
     }
