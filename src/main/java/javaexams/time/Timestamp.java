@@ -10,6 +10,9 @@ public class Timestamp {
     String errString = "2020-11-20 06:10:00";
     System.out.println(errString.charAt(11));
     System.out.println(errString.getBytes()[11]); //символ с кодом 160
+    if (errString.contains(" ")) {
+      System.out.println("неразрывный пробел");
+    }
 
 
     System.out.println(normString.equals(errString)); //false
