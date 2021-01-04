@@ -1,5 +1,7 @@
 package javaexams.time;
 
+import groovy.json.JsonOutput;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,5 +35,14 @@ public class CalendarsAndDates {
     System.out.println(calendar2.before(date));
     //ибо нефиг сравнивать разные классы
     System.out.println(calendar2.after(calendar));
+
+    System.out.println("*********************************");
+
+    Calendar calendar3 = Calendar.getInstance();
+    calendar3.setTime(new Date());
+    calendar3.add(Calendar.DATE, 1);  // number of days to add
+    System.out.println(sdf.format(calendar3.getTime()));  // dt is now the new date
+
+
   }
 }
