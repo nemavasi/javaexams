@@ -2,6 +2,7 @@ package javaexams.io;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.Date;
 
 public class BytesIO {
   public static void main(String[] args) throws IOException {
@@ -34,19 +35,21 @@ public class BytesIO {
 
     System.out.println();
     System.out.println("читаем по одному символу - и выводим символ");
-
+    long t1 = new Date().getTime();
     try(Reader reader = new FileReader(file)){
       int b;
       while ((b = reader.read()) > 0) {
         System.out.print((char)b);
       }
     }
+    System.out.println("=" + (new Date().getTime() - t1));
 
     System.out.println();
     System.out.println();
     System.out.println("читаем по пачке символов - и выводим");
+    long t2 = new Date().getTime();
     try(Reader reader = new FileReader(file, Charset.forName("Windows-1251"))){
-      int s = 1000;
+      int s = 100000;
       char[] b = new char[s];
       int cnt;
       while ((cnt = reader.read(b, 0, s)) > 0) {
@@ -55,5 +58,6 @@ public class BytesIO {
         }
       }
     }
+    System.out.println("=" + (new Date().getTime() - t2));
   }
 }
