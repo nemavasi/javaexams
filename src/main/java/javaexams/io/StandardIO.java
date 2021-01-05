@@ -74,7 +74,33 @@ public class StandardIO {
         reader.read(chars, 14, 11);
       }
       System.out.println(chars);
+    }
 
+
+    System.out.println();
+    System.out.println("читаем только согласные");
+    try(Reader reader = new SymbFilterReader(new FileReader(file, Charset.forName("Windows-1251")))) {
+      int b;
+      while ((b = reader.read()) > 0) {
+        System.out.print((char)b);
+      }
+    }
+  }
+
+
+  static class  SymbFilterReader extends FilterReader{
+
+    protected SymbFilterReader(Reader in) {
+      super(in);
+    }
+    public int read() throws IOException {
+      int x = super.read();
+      if ((char) x == 'а' || (char) x == 'о' || (char) x == 'е' || (char) x == 'у' || (char) x == 'и' || (char) x == 'ы' || (char) x == 'ю' || (char) x == 'я'  || (char) x == 'э' ||
+      (char) x == 'А' || (char) x == 'О' || (char) x == 'Е' || (char) x == 'У' || (char) x == 'И' || (char) x == 'Ы' || (char) x == 'Ю' || (char) x == 'Я'  || (char) x == 'Э'
+      )
+        return read();
+      else
+        return x;
     }
   }
 }
