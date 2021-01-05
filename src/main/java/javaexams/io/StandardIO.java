@@ -4,7 +4,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Date;
 
-public class BytesIO {
+public class StandardIO {
   public static void main(String[] args) throws IOException {
     System.out.println(System.getProperty("java.class.path"));
     String[] javaClassPaths = System.getProperty("java.class.path").split(File.pathSeparator);
@@ -59,5 +59,22 @@ public class BytesIO {
       }
     }
     System.out.println("=" + (new Date().getTime() - t2));
+
+
+    System.out.println();
+    System.out.println("читаем только часть символов - с 10 по 20, в начало подставляем другой текст");
+    try(Reader reader = new FileReader(file, Charset.forName("Windows-1251"))){
+      char[] chars = new char[25];
+      String str = "Привет, друг. ";
+      for (int i = 0; i < str.length(); i++) {
+        chars[i] = str.charAt(i);
+      }
+      System.out.println(chars);
+      if (reader.skip(9) > 0){
+        reader.read(chars, 14, 11);
+      }
+      System.out.println(chars);
+
+    }
   }
 }
