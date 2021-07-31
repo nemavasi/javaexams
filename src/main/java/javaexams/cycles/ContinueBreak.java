@@ -1,5 +1,6 @@
 package javaexams.cycles;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class ContinueBreak {
@@ -7,6 +8,8 @@ public class ContinueBreak {
     public static void main(String[] args) {
 
         int[] nm = IntStream.range(0, 5).toArray();
+
+        Integer[] n = Arrays.stream(nm).boxed().toArray(Integer[]::new);
 
         OUTER:
         for (int i = 0; i < nm.length; i++) {
