@@ -11,5 +11,11 @@ public class NanAnd0_0 {
         System.out.println(Double.toString(-0.0)==Double.toString(0.0)); //false
         System.out.println(Double.toString(-0.0));   //-0.0
 
+        System.out.println(Float.NaN==Float.NaN); //false
+        System.out.println(Float.isNaN(Float.NaN)); //true
+
+        System.out.println(Math.PI);                 //3.141592653589793
+        System.out.println(Math.nextUp(Math.PI));    //3.1415926535897936
+        System.out.println(Math.ulp(Math.PI));       //4.440892098500626E-16
     }
 }
