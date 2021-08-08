@@ -28,6 +28,8 @@ public class ArraysCopies {
 
 
         m[2][0] +=1;
+        System.out.println(Arrays.deepToString(mShallowCopy));     //[[2, 3, 4], [8, 9], [1]]
+        System.out.println(Arrays.deepToString(mStreamDeepCopy));  //[[2, 3, 4], [8, 9], [0]]
     }
 
 }
