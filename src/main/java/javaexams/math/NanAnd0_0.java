@@ -10,6 +10,11 @@ public class NanAnd0_0 {
         System.out.println(-0.0==0.0);    //true
         System.out.println(Double.toString(-0.0)==Double.toString(0.0)); //false
         System.out.println(Double.toString(-0.0));   //-0.0
+        System.out.println(1/-0.0);    //-Infinity
+        System.out.println(1/0.0);    //Infinity
+        System.out.println(-0.0==0);    //true
+        System.out.println(Double.compare(0, -0.0)); //1
+        System.out.println(Double.compare(0, 0.0));  //0
 
         System.out.println(Float.NaN==Float.NaN); //false
         System.out.println(Float.isNaN(Float.NaN)); //true
