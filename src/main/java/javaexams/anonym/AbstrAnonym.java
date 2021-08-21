@@ -8,7 +8,6 @@ public class AbstrAnonym {
         };
         //foo.test(); it does not compile because it is Foo class, and Foo class does not have test() method
     }
-
 }
 
 abstract class Foo {
