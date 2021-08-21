@@ -7,6 +7,7 @@ public class AbstrAnonym {
             void test(){}
         };
         //foo.test(); it does not compile because it is Foo class, and Foo class does not have test() method
+
     }
 }
 
