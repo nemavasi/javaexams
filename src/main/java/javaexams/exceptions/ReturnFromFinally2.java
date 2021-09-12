@@ -1,18 +1,19 @@
 package javaexams.exceptions;
 
-public class ReturnFromFinally {
+public class ReturnFromFinally2 {
 
     public static void main(String[] args) {
         System.out.println(test());
     }
 
-    static int test(){
+    static int test() {
+        int x = 13;
         try {
-            return 13;
+            return x;
         } finally {
-            return 42;
+            x = 42;
         }
     }
 }
 
-//42
+// 13
