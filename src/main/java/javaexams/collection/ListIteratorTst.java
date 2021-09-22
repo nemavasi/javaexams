@@ -29,6 +29,8 @@ public class ListIteratorTst {
         ListIterator<Integer> listIteratorCenter = baseList.listIterator(2);
         System.out.println(listIteratorCenter.hasNext());       // true
         System.out.println(listIteratorCenter.hasPrevious());   // true
+        System.out.println(listIteratorCenter.nextIndex());       // 2
+        System.out.println(listIteratorCenter.previousIndex());   // 1
         while (listIteratorCenter.hasNext()){
             System.out.println(listIteratorCenter.next());
         }
