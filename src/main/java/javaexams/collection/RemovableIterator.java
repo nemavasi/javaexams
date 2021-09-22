@@ -15,7 +15,11 @@ public class RemovableIterator {
         listIterator.next();
         listIterator.remove();
         System.out.println(baseList);                  // [1, 2, 4, 5]
-        listIterator.remove();                         // "main" java.lang.IllegalStateException
+        //listIterator.remove();                       // "main" java.lang.IllegalStateException
+        listIterator.next();
+        listIterator.set(3);
+        System.out.println(baseList);                  // [1, 2, 3, 5]
+        System.out.println(listIterator.nextIndex());  // 3
 
 //        An iterator for a list of length n has n+1 possible cursor positions (between elements)
 //        Note that the remove() and set(Object) methods are not defined in terms of the cursor position;
