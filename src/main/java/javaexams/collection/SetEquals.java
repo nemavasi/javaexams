@@ -15,6 +15,11 @@ public class SetEquals {
         set2.add("foo");
         set2.add("boo");
 
+        Set<String> set3 = new HashSet<>();
+        set3.add("foo");
+        set3.add("boo");
+
         System.out.println(set1.equals(set2));  //true
+        System.out.println(set1.equals(set3));  //true
     }
 }
