@@ -99,6 +99,16 @@
             <version>${groovy.version}</version>
         </dependency>
 
+
+        <!-- aws start -->
+        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.12.159</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
