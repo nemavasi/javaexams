@@ -4,15 +4,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.core.signer.Presigner;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
@@ -25,12 +26,14 @@ import software.amazon.awssdk.services.s3.model.PublicAccessBlockConfiguration;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutPublicAccessBlockRequest;
 import software.amazon.awssdk.services.s3.model.S3Object;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-//    private static final String AWS_ACCESS_KEY = "AWS_ACCESS_KEY_ID";
+    //    private static final String AWS_ACCESS_KEY = "AWS_ACCESS_KEY_ID";
 //    private static final String AWS_SECRET_ACCESS_KEY = "AWS_SECRET_ACCESS_KEY";
     private static final String BUCKET_NAME = "sdfgfghgffgytyv";
     private static final String BUCKET_NAME_FOR_COPY = "dfxghjghjdghjdghj";
@@ -41,12 +44,14 @@ public class Application {
     //private static final String DOWNLOADED_FILE_URL = Application.class.getClassLoader().getName();
 
     private final S3Client s3Client;
+    private final S3Presigner s3Presigner;
 
-    public Application(S3Client s3Client) {
+    public Application(S3Client s3Client, S3Presigner s3Presigner) {
         this.s3Client = s3Client;
+        this.s3Presigner = s3Presigner;
     }
 
-    public void createBucket(String bucketName){
+    public void createBucket(String bucketName) {
         try {
             CreateBucketRequest createBucketRequest = CreateBucketRequest.builder()
                 .bucket(bucketName)
@@ -57,7 +62,7 @@ public class Application {
         }
     }
 
-    public void uploadFile(String bucketName, String key, URI uri){
+    public void uploadFile(String bucketName, String key, URI uri) {
         try {
             PutObjectRequest putBucketRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -99,7 +104,8 @@ public class Application {
             .collect(Collectors.toList());
     }
 
-    public void copyFile(String sourceBucketName, String sourceKey, String destinationBucketName, String destinationKey){
+    public void copyFile(String sourceBucketName, String sourceKey, String destinationBucketName,
+                         String destinationKey) {
         try {
             String encodedSourceUrl = URLEncoder.encode(sourceBucketName + "/" + sourceKey, StandardCharsets.UTF_8);
             CopyObjectRequest copyObjectRequest = CopyObjectRequest.builder()
@@ -115,7 +121,7 @@ public class Application {
         }
     }
 
-    public void blockBucket(String bucketName){
+    public void blockBucket(String bucketName) {
         try {
             PutPublicAccessBlockRequest putPublicAccessBlockRequest = PutPublicAccessBlockRequest.builder()
                 .bucket(bucketName)
@@ -134,6 +140,25 @@ public class Application {
         }
     }
 
+    public String resolvePreSignedUrl(String bucketName, String key) {
+        try {
+            GetObjectRequest getBucketRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build();
+            GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+                .getObjectRequest(getBucketRequest)
+                .signatureDuration(Duration.ofSeconds(30))
+                .build();
+
+            return s3Presigner.presignGetObject(getObjectPresignRequest).url().toString();
+
+        } catch (Exception e) {
+            log.error("Error in downloadFile", e);
+        }
+        return null;
+    }
+
     public static void main(String[] args) throws URISyntaxException {
 
 //        String accessKey = System.getenv(AWS_ACCESS_KEY);
@@ -143,25 +168,28 @@ public class Application {
             .region(Region.EU_CENTRAL_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
+        S3Presigner presigner = S3Presigner.builder()
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
-        Application app = new Application(amazonS3Client);
+        Application app = new Application(amazonS3Client, presigner);
 //        app.createBucket(BUCKET_NAME);
 
- //       app.uploadFile(BUCKET_NAME, FILE_NAME2, FILE_URL.toURI());
+        //       app.uploadFile(BUCKET_NAME, FILE_NAME2, FILE_URL.toURI());
 
-       // log.info("dff",FILE_URL.getPath() );
+        // log.info("dff",FILE_URL.getPath() );
 
-       //app.downloadFile(BUCKET_NAME, FILE_NAME2, Path.of(FILE_URL.getPath()+".downloaded").toUri());
-
+        //app.downloadFile(BUCKET_NAME, FILE_NAME2, Path.of(FILE_URL.getPath()+".downloaded").toUri());
 
 //        System.out.println("BUCKETS");
 //        System.out.println(app.listBuckets());
 //        System.out.println("FILES");
 //        System.out.println(app.listFiles(BUCKET_NAME));
 
-      //  app.copyFile(BUCKET_NAME, FILE_NAME2, BUCKET_NAME_FOR_COPY, FILE_NAME2);
+        //  app.copyFile(BUCKET_NAME, FILE_NAME2, BUCKET_NAME_FOR_COPY, FILE_NAME2);
 
-        app.blockBucket(BUCKET_NAME);
+        // app.blockBucket(BUCKET_NAME);
+        System.out.println(app.resolvePreSignedUrl(BUCKET_NAME_FOR_COPY, FILE_NAME2));
 
     }
 }
