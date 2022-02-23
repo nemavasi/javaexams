@@ -3,6 +3,9 @@ package myaws.s3;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +16,14 @@ import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsPro
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
+import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
+import software.amazon.awssdk.services.s3.model.PublicAccessBlockConfiguration;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutPublicAccessBlockRequest;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
 public class Application {
@@ -27,6 +33,7 @@ public class Application {
 //    private static final String AWS_ACCESS_KEY = "AWS_ACCESS_KEY_ID";
 //    private static final String AWS_SECRET_ACCESS_KEY = "AWS_SECRET_ACCESS_KEY";
     private static final String BUCKET_NAME = "sdfgfghgffgytyv";
+    private static final String BUCKET_NAME_FOR_COPY = "dfxghjghjdghjdghj";
     private static final String FILE_NAME1 = "example.txt";
     private static final String FILE_NAME2 = "newname.txt";
     private static final String FILE_NAME3 = "downlodedFile.txt";
@@ -92,6 +99,41 @@ public class Application {
             .collect(Collectors.toList());
     }
 
+    public void copyFile(String sourceBucketName, String sourceKey, String destinationBucketName, String destinationKey){
+        try {
+            String encodedSourceUrl = URLEncoder.encode(sourceBucketName + "/" + sourceKey, StandardCharsets.UTF_8);
+            CopyObjectRequest copyObjectRequest = CopyObjectRequest.builder()
+                .copySource(encodedSourceUrl)
+                .destinationBucket(destinationBucketName)
+                .destinationKey(destinationKey)
+                .build();
+
+            s3Client.copyObject(copyObjectRequest);
+
+        } catch (Exception e) {
+            log.error("Error in copyFile", e);
+        }
+    }
+
+    public void blockBucket(String bucketName){
+        try {
+            PutPublicAccessBlockRequest putPublicAccessBlockRequest = PutPublicAccessBlockRequest.builder()
+                .bucket(bucketName)
+                .publicAccessBlockConfiguration(PublicAccessBlockConfiguration.builder()
+                    .blockPublicAcls(true)
+                    .blockPublicPolicy(true)
+                    .restrictPublicBuckets(true)
+                    .ignorePublicAcls(true)
+                    .build())
+                .build();
+
+            s3Client.putPublicAccessBlock(putPublicAccessBlockRequest);
+
+        } catch (Exception e) {
+            log.error("Error in uploadFile", e);
+        }
+    }
+
     public static void main(String[] args) throws URISyntaxException {
 
 //        String accessKey = System.getenv(AWS_ACCESS_KEY);
@@ -112,10 +154,14 @@ public class Application {
        //app.downloadFile(BUCKET_NAME, FILE_NAME2, Path.of(FILE_URL.getPath()+".downloaded").toUri());
 
 
-        System.out.println("BUCKETS");
-        System.out.println(app.listBuckets());
-        System.out.println("FILES");
-        System.out.println(app.listFiles(BUCKET_NAME));
+//        System.out.println("BUCKETS");
+//        System.out.println(app.listBuckets());
+//        System.out.println("FILES");
+//        System.out.println(app.listFiles(BUCKET_NAME));
+
+      //  app.copyFile(BUCKET_NAME, FILE_NAME2, BUCKET_NAME_FOR_COPY, FILE_NAME2);
+
+        app.blockBucket(BUCKET_NAME);
 
     }
 }
