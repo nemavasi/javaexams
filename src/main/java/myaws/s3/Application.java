@@ -13,13 +13,18 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.awscore.exception.AwsServiceException;
+import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.signer.Presigner;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
+import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListBucketsRequest;
+import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
 import software.amazon.awssdk.services.s3.model.PublicAccessBlockConfiguration;
@@ -37,6 +42,7 @@ public class Application {
 //    private static final String AWS_SECRET_ACCESS_KEY = "AWS_SECRET_ACCESS_KEY";
     private static final String BUCKET_NAME = "sdfgfghgffgytyv";
     private static final String BUCKET_NAME_FOR_COPY = "dfxghjghjdghjdghj";
+    private static final String BUCKET_NAME_FOR_DELETE = "dgfdfghfghfghfghghgh";
     private static final String FILE_NAME1 = "example.txt";
     private static final String FILE_NAME2 = "newname.txt";
     private static final String FILE_NAME3 = "downlodedFile.txt";
@@ -154,9 +160,21 @@ public class Application {
             return s3Presigner.presignGetObject(getObjectPresignRequest).url().toString();
 
         } catch (Exception e) {
-            log.error("Error in downloadFile", e);
+            log.error("Error in resolvePreSignedUrl", e);
         }
         return null;
+    }
+
+    public void deleteBucket(String bucketName) {
+        try {
+            DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder()
+                .bucket(bucketName)
+                .build();
+
+            s3Client.deleteBucket(deleteBucketRequest);
+        } catch (Exception e) {
+          log.error("Error in deleteBucket", e);
+        }
     }
 
     public static void main(String[] args) throws URISyntaxException {
@@ -189,7 +207,8 @@ public class Application {
         //  app.copyFile(BUCKET_NAME, FILE_NAME2, BUCKET_NAME_FOR_COPY, FILE_NAME2);
 
         // app.blockBucket(BUCKET_NAME);
-        System.out.println(app.resolvePreSignedUrl(BUCKET_NAME_FOR_COPY, FILE_NAME2));
-
+        //System.out.println(app.resolvePreSignedUrl(BUCKET_NAME_FOR_COPY, FILE_NAME2));
+        app.deleteBucket(BUCKET_NAME_FOR_DELETE);
+        System.out.println(app.listBuckets());
     }
 }
