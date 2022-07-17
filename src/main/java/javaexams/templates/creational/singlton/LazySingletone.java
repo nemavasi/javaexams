@@ -2,6 +2,12 @@ package javaexams.templates.creational.singlton;
 
 public class LazySingletone {
 
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
     private LazySingletone() {
         System.out.println("LazySingletone created");
     }
