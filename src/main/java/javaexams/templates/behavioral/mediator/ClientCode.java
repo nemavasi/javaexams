@@ -29,3 +29,14 @@ public class ClientCode {
         wolf.sendMessage("row");
     }
 }
+
+//    javaexams.templates.behavioral.mediator.impl.Bear received a message: bom!
+//
+//    javaexams.templates.behavioral.mediator.impl.Bear received a message: Cool!
+//
+//    javaexams.templates.behavioral.mediator.impl.Bear received a message: row
+//    javaexams.templates.behavioral.mediator.impl.Wolf received a message: row
+//    javaexams.templates.behavioral.mediator.impl.Fox received a message: row
+//    javaexams.templates.behavioral.mediator.impl.Dog received a message: row
+//    javaexams.templates.behavioral.mediator.impl.Cat received a message: row
+//    javaexams.templates.behavioral.mediator.impl.Rabbit received a message: row
