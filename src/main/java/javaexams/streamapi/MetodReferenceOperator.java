@@ -2,7 +2,7 @@ package javaexams.streamapi;
 
 import java.util.function.Supplier;
 
-public class Supplyers {
+public class MetodReferenceOperator {
 
     String string = null;
 
@@ -16,7 +16,7 @@ public class Supplyers {
     }
 
     public static void main(String[] args) {
-        new Supplyers().test();
+        new MetodReferenceOperator().test();
     }
 }
 
