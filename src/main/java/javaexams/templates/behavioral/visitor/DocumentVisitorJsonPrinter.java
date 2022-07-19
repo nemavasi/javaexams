@@ -16,4 +16,16 @@ public class DocumentVisitorJsonPrinter implements DocumentVisitor {
             "json " + order.getNumber() + " " + new SimpleDateFormat("dd-MM-yyyy").format(order.getDate()));
         return null;
     }
+
+    @Override
+    public Object visit(Letter letter) {
+        System.out.println("json " + letter.getNumber() + letter.getDate());
+        return null;
+    }
+
+    @Override
+    public Object visit(Invoice order) {
+        System.out.println("json " + order.getNumber());
+        return null;
+    }
 }

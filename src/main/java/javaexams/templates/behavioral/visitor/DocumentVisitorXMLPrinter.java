@@ -16,4 +16,16 @@ public class DocumentVisitorXMLPrinter implements DocumentVisitor {
             "xml " + order.getNumber() + " " + new SimpleDateFormat("dd-MM-yyyy").format(order.getDate()));
         return null;
     }
+
+    @Override
+    public Object visit(Letter order) {
+        System.out.println("xml " + order.getDate());
+        return null;
+    }
+
+    @Override
+    public Object visit(Invoice order) {
+        System.out.println("xml " + order.getNumber());
+        return null;
+    }
 }
