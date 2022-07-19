@@ -22,3 +22,11 @@ public class Supplyers {
 
 //    NEW
 //    OLD
+
+
+/*
+* Java Method Reference ::
+* Syntax: <classname or instancename>::<methodname>
+* The method in the functional interface and the passing method reference should match for the argument and returntype.
+* Method reference can be done for both static and class methods.
+* */
