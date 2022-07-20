@@ -2,7 +2,7 @@ package javaexams.streamapi;
 
 import java.util.function.Supplier;
 
-//There are four kinds of method references:
+//There are four kinds of method references ::
 //
 //    Static methods
 //    Instance methods of particular objects
@@ -15,15 +15,15 @@ public class MetodReferenceOperator {
 
     public void test() {
         string = "old";
-        Supplier<String> s1 = () -> string.toUpperCase(); //Lambda expression  unbounded receiver
-        Supplier<String> s2 = new Supplier<String>() {    //Method Reference   unbounded receiver
+        Supplier<String> s1 = () -> string.toUpperCase(); //Lambda expression
+        Supplier<String> s2 = new Supplier<String>() {
             @Override
             public String get() {
                 return string.toUpperCase();
             }
         };
 
-        Supplier<String> s3 = string::toUpperCase;  //bounded receiver <instancename>::<methodname>
+        Supplier<String> s3 = string::toUpperCase;  //Method Reference bounded! receiver <instancename>::<methodname>
 
         string = "new";
         System.out.println(s1.get());
